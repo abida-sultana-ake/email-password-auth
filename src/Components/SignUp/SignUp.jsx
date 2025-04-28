@@ -6,10 +6,19 @@ const SignUp = () => {
 
   const handleSignUp = (e) => {
     e.preventDefault();
+    setErrorMessage(""); 
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
-    setErrorMessage('');
+
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      setErrorMessage(
+        "Password must be at least 8 characters, include a number, a lowercase and an uppercase letter."
+      );
+      return; 
+    }
+
     const auth = getAuth();
     signOut(auth)
       .then(() => {
@@ -47,16 +56,12 @@ const SignUp = () => {
                 className="input"
                 placeholder="Password"
                 minLength="8"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
               />
-              <p className="validator-hint hidden">
-                Must be more than 8 characters, including
-                <br />
-                At least one number <br />
-                At least one lowercase letter <br />
-                At least one uppercase letter
-              </p>
+
+              {errorMessage && (
+                <p className="text-red-500 mt-2">{errorMessage}</p>
+              )}
+
               <div>
                 <a className="link link-hover">Forgot password?</a>
               </div>
@@ -70,8 +75,6 @@ const SignUp = () => {
           </div>
         </div>
       </form>
-
-      {errorMessage && <p className="text-3xl text-red-500">{errorMessage}</p>}
     </>
   );
 };
