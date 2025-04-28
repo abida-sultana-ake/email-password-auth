@@ -24,7 +24,3 @@ createRoot(document.getElementById("root")).render(
     <RouterProvider router={router} />
   </StrictMode>
 );
-
-// git remote add origin https://github.com/abida-sultana-ake/email-password-auth.git
-// git branch -M main
-// git push -u origin main
