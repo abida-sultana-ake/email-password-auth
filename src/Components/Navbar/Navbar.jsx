@@ -4,10 +4,18 @@ import { NavLink } from "react-router";
 const Navbar = () => {
   const links = (
     <>
-      <li><NavLink to="/">Home</NavLink> </li>
-      <li><NavLink to="/login">Login</NavLink> </li>
-      <li><NavLink to="/register">Register</NavLink> </li>
-      <li><NavLink to="/signUp">Sign Up</NavLink> </li>
+      <li>
+        <NavLink to="/">Home</NavLink>{" "}
+      </li>
+      <li>
+        <NavLink to="/login">Login</NavLink>{" "}
+      </li>
+      <li>
+        <NavLink to="/register">Register</NavLink>{" "}
+      </li>
+      <li>
+        <NavLink to="/signUp">Sign Up</NavLink>{" "}
+      </li>
     </>
   );
   return (
@@ -36,18 +44,37 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-                {links}
+              {links}
             </ul>
           </div>
           <a className="btn btn-ghost text-xl">Aaaa</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-           {links}
-          </ul>
+          <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {/* <a className="btn">Button</a> */}
+          {/* You can open the modal using document.getElementById('ID').showModal() method */}
+          <button
+            className="btn"
+            onClick={() => document.getElementById("my_modal_3").showModal()}
+          >
+            Click Me
+          </button>
+          <dialog id="my_modal_3" className="modal">
+            <div className="modal-box">
+              <form method="dialog">
+                {/* if there is a button in form, it will close the modal */}
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                  ✕
+                </button>
+              </form>
+              <h3 className="font-bold text-lg">Hello!</h3>
+              <p className="py-4">
+                Press ESC key or click on ✕ button to close
+              </p>
+            </div>
+          </dialog>
         </div>
       </div>
     </div>

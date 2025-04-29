@@ -1,22 +1,31 @@
 import { getAuth, signOut } from "firebase/auth";
+import { FaEye, FaRegEyeSlash } from "react-icons/fa";
 import React, { useState } from "react";
 
 const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    setErrorMessage(""); 
+    setErrorMessage("");
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+    const terms = e.target.terms.checked;
+    console.log(email, password, terms);
+
+    if(!terms)
+    {
+      setErrorMessage("Please Accept Our terms and Conditions");
+      return;
+    }
 
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     if (!passwordRegex.test(password)) {
       setErrorMessage(
         "Password must be at least 8 characters, include a number, a lowercase and an uppercase letter."
       );
-      return; 
+      return;
     }
 
     const auth = getAuth();
@@ -50,13 +59,23 @@ const SignUp = () => {
                 placeholder="Email"
               />
               <label className="label">Password</label>
-              <input
-                type="password"
-                name="password"
-                className="input"
-                placeholder="Password"
-                minLength="8"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  className="input"
+                  placeholder="Password"
+                  minLength="8"
+                />
+                <button
+                  onClick={() => {
+                    setShowPassword(!showPassword);
+                  }}
+                  className="btn btn-xs absolute top-2 right-6"
+                >
+                  {showPassword ? <FaRegEyeSlash /> : <FaEye />}
+                </button>
+              </div>
 
               {errorMessage && (
                 <p className="text-red-500 mt-2">{errorMessage}</p>
@@ -65,11 +84,17 @@ const SignUp = () => {
               <div>
                 <a className="link link-hover">Forgot password?</a>
               </div>
+              <div>
+                <label className="label">
+                  <input type="checkbox"  className="checkbox" />
+                  Accept Terms and Conditions 
+                </label>
+              </div>
               <button
                 type="submit"
                 className="btn btn-neutral bg-blue-700 border-blue-700 mt-4"
               >
-                Sign Out
+                Sign Up
               </button>
             </fieldset>
           </div>
