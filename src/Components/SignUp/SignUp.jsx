@@ -1,6 +1,7 @@
 import { getAuth, signOut } from "firebase/auth";
 import { FaEye, FaRegEyeSlash } from "react-icons/fa";
 import React, { useState } from "react";
+import { Link } from "react-router";
 
 const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -50,7 +51,7 @@ const SignUp = () => {
             <h1 className="text-blue-600 text-3xl font-bold">
               Registration Now!
             </h1>
-            <fieldset className="fieldset">
+            <form className="fieldset">
               <label className="label">Email</label>
               <input
                 type="email"
@@ -86,9 +87,10 @@ const SignUp = () => {
               </div>
               <div>
                 <label className="label">
-                  <input type="checkbox"  className="checkbox" />
+                  <input type="checkbox"  className="checkbox mt-3" />
                   Accept Terms and Conditions 
                 </label>
+                <p className="mt-3">Already have an account? Please <Link className="text-blue-400 underline" to="/login"> LogIn </Link></p>
               </div>
               <button
                 type="submit"
@@ -96,10 +98,11 @@ const SignUp = () => {
               >
                 Sign Up
               </button>
-            </fieldset>
+            </form>
           </div>
         </div>
       </form>
+      
     </>
   );
 };
